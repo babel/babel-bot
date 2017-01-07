@@ -1,0 +1,36 @@
+{
+  "name": "babel-bot-lamdba",
+  "private": true,
+  "version": "1.0.0",
+  "description": "An AWS Lambda function that drives babel-bot on GitHub",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -f function.zip && rm -rf dist",
+    "bundle": "cd dist && zip -r ../function.zip . &&  cd - && zip -ru function.zip node_modules",
+    "package": "npm run clean && npm run build && npm run bundle",
+    "test": "jest && flow check",
+    "build": "babel src --out-dir dist --ignore __tests__"
+  },
+  "author": "Andrew Levine",
+  "license": "MIT",
+  "dependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.21.0",
+    "common-tags": "^1.4.0",
+    "got": "^6.6.3",
+    "parse-diff": "^0.4.0",
+    "timing-safe-equal": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.19.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-es2015-parameters": "^6.21.0",
+    "babel-plugin-transform-es2015-spread": "^6.8.0",
+    "flow-bin": "^0.37.4",
+    "jest": "^18.0.0"
+  },
+  "jest": {
+    "rootDir": "src",
+    "notify": true
+  }
+}
