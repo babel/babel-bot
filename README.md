@@ -33,7 +33,7 @@ Visit [the guide](AWS_SETUP.md) for detailed instructions.
 
 ## Unit-Testing
 
-**TODO**: Flesh out more before documenting
+Examples of how to test a handler can be seen in `src/handlers/issues/__tests__`.
 
 ## Deploying a New Version to AWS Lamdba
 

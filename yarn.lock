@@ -222,6 +222,16 @@ babel-helper-call-delegate@^6.18.0:
     babel-traverse "^6.18.0"
     babel-types "^6.18.0"
 
+babel-helper-function-name@^6.18.0:
+  version "6.18.0"
+  resolved "https://registry.yarnpkg.com/babel-helper-function-name/-/babel-helper-function-name-6.18.0.tgz#68ec71aeba1f3e28b2a6f0730190b754a9bf30e6"
+  dependencies:
+    babel-helper-get-function-arity "^6.18.0"
+    babel-runtime "^6.0.0"
+    babel-template "^6.8.0"
+    babel-traverse "^6.18.0"
+    babel-types "^6.18.0"
+
 babel-helper-get-function-arity@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-helper-get-function-arity/-/babel-helper-get-function-arity-6.18.0.tgz#a5b19695fd3f9cdfc328398b47dafcd7094f9f24"
@@ -270,9 +280,22 @@ babel-plugin-jest-hoist@^18.0.0:
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-18.0.0.tgz#4150e70ecab560e6e7344adc849498072d34e12a"
 
+babel-plugin-syntax-class-properties@^6.8.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
+
 babel-plugin-syntax-flow@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-flow/-/babel-plugin-syntax-flow-6.18.0.tgz#4c3ab20a2af26aa20cd25995c398c4eb70310c8d"
+
+babel-plugin-transform-class-properties@^6.19.0:
+  version "6.19.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-class-properties/-/babel-plugin-transform-class-properties-6.19.0.tgz#1274b349abaadc835164e2004f4a2444a2788d5f"
+  dependencies:
+    babel-helper-function-name "^6.18.0"
+    babel-plugin-syntax-class-properties "^6.8.0"
+    babel-runtime "^6.9.1"
+    babel-template "^6.15.0"
 
 babel-plugin-transform-es2015-destructuring@^6.19.0:
   version "6.19.0"
@@ -346,14 +369,14 @@ babel-register@^6.18.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.20.0, babel-runtime@^6.9.0:
+babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.20.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1:
   version "6.20.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.20.0.tgz#87300bdcf4cd770f09bf0048c64204e17806d16f"
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-template@^6.16.0:
+babel-template@^6.15.0, babel-template@^6.16.0, babel-template@^6.8.0:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.16.0.tgz#e149dd1a9f03a35f817ddbc4d0481988e7ebc8ca"
   dependencies:

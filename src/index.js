@@ -2,23 +2,23 @@
 
 const got = require('got');
 const github = require('./github');
-const messages = require('./messages');
-const util = require('./util');
-const auth = require('./auth');
+import messages from './messages';
+import util from './util';
+import auth from './auth';
+import Logger from './logger';
 
-export type Payload = {
-    action: string;
-};
-
-export type InputType = {
+type InputType = {
     signature: string;
-    data: Payload;
+    data: { action: string };
     type: string;
 };
 
 type LambdaCB = (err: any, success: any) => void;
 
+const { log } = new Logger('index.js');
+
 exports.handler = ({ signature, data, type }: InputType, context: Object, callback: LambdaCB) => {
+    log('Validating auth', 'verbose');
     const isAuthValid = auth.isValid(
         JSON.stringify(data),
         signature,
@@ -26,21 +26,23 @@ exports.handler = ({ signature, data, type }: InputType, context: Object, callba
     );
 
     if (!isAuthValid) {
+        log('Auth Invalid', 'verbose');
         return callback(new Error('Invalid Auth'));
     }
 
+    log('Auth Valid', 'verbose');
     const possibleHandlerPath = `./handlers/${type}/${data.action}`;
     let handler;
 
     try {
-        // $FlowFixMe: Dynamic requires FTW
+        // $FlowIgnore: Dynamic requires FTW
         handler = require(possibleHandlerPath);
     } catch (e) {
-        console.log(`**No matching handler found for ${type}:${data.action}**`);
-        console.log(`**Tried looking in ${possibleHandlerPath}**`);
+        log(`**No matching handler found for ${type}:${data.action}**`, 'verbose');
+        log(`**Tried looking in ${possibleHandlerPath}**`, 'verbose');
         return;
     }
 
-    console.log(`**Invoking handler for ${type}:${data.action}**`);
+    console.log(`**Invoking handler for ${type}:${data.action}**`, 'verbose');
     handler.default ? handler.default(data) : handler(data);
 };
