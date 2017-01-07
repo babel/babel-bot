@@ -29,7 +29,7 @@ Examples of existing event rules can be found in `src/handlers`.
 
 ## Setting up AWS Lamdba/API Gateway as a Test Environment
 
-**TODO**
+Visit [the guide](AWS_SETUP.md) for detailed instructions.
 
 ## Unit-Testing
 
