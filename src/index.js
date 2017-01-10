@@ -43,6 +43,6 @@ exports.handler = ({ signature, data, type }: InputType, context: Object, callba
         return;
     }
 
-    console.log(`**Invoking handler for ${type}:${data.action}**`, 'verbose');
+    log(`**Invoking handler for ${type}:${data.action}**`);
     handler.default ? handler.default(data) : handler(data);
 };
