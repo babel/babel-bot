@@ -29,7 +29,6 @@ exports.handler = ({ signature, data, type }: InputType, context: Object, callba
     );
 
     if (!isAuthValid) {
-        log('Auth Invalid', 'verbose');
         return callback(new Error('Invalid Auth'));
     }
 
@@ -39,7 +38,6 @@ exports.handler = ({ signature, data, type }: InputType, context: Object, callba
     let handler;
 
     try {
-        // $FlowIgnore: Dynamic requires FTW
         handler = require(possibleHandlerPath);
     } catch (e) {
         log(`**No matching handler found for ${type}:${event}**`, 'verbose');
