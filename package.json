@@ -14,7 +14,6 @@
   "author": "Andrew Levine",
   "license": "MIT",
   "dependencies": {
-    "babel-plugin-transform-flow-strip-types": "^6.21.0",
     "common-tags": "^1.4.0",
     "got": "^6.6.3",
     "parse-diff": "^0.4.0",
@@ -27,6 +26,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-es2015-parameters": "^6.21.0",
     "babel-plugin-transform-es2015-spread": "^6.8.0",
+    "babel-plugin-transform-flow-strip-types": "^6.21.0",
     "flow-bin": "^0.37.4",
     "jest": "^18.0.0"
   },
