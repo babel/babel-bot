@@ -12,7 +12,7 @@ The bot is build as an [AWS Lambda](https://aws.amazon.com/lambda/) function, us
 
 - Create a new comment on newly opened issues
 - Reply to issue with canned response when `Needs Info` label is added
-- Add labels to new PRs identifying which packages from the monorepo have been touched
+- Notify committer in PR of test failures in TravisCI, and add OS/node.js version that failed, with direct link to log
 
 ## Future Bot Ideas
 
@@ -22,7 +22,7 @@ The bot is build as an [AWS Lambda](https://aws.amazon.com/lambda/) function, us
 
 1. Look at the list of [GitHub webhook events](https://developer.github.com/webhooks/#events) to determine which your rule should respond to.
 2. Find (or create) a folder under `src/handlers` with the name matching the name of the GitHub `event`
-3. Create a new JS file under the directory, with the name matching the `action` you want your code to be triggered for
+3. Create a new JS file under the directory, with the name matching the `action` or `state` (dependening on the shape of the GitHub payload) you want your code to be triggered for
 4. Export a default function that accepts 1 argument, which will be the payload from GitHub each time the event is triggered.
 
 Examples of existing event rules can be found in `src/handlers`.

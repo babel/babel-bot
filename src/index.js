@@ -9,7 +9,10 @@ import Logger from './logger';
 
 type InputType = {
     signature: string;
-    data: { action: string };
+    data: {
+        action?: string;
+        state?: string;
+    };
     type: string;
 };
 
@@ -31,18 +34,20 @@ exports.handler = ({ signature, data, type }: InputType, context: Object, callba
     }
 
     log('Auth Valid', 'verbose');
-    const possibleHandlerPath = `./handlers/${type}/${data.action}`;
+    const event = data.action || data.state || 'UNKNOWN';
+    const possibleHandlerPath = `./handlers/${type}/${event}`;
     let handler;
 
     try {
         // $FlowIgnore: Dynamic requires FTW
         handler = require(possibleHandlerPath);
     } catch (e) {
-        log(`**No matching handler found for ${type}:${data.action}**`, 'verbose');
+        log(`**No matching handler found for ${type}:${event}**`, 'verbose');
         log(`**Tried looking in ${possibleHandlerPath}**`, 'verbose');
         return;
     }
 
-    log(`**Invoking handler for ${type}:${data.action}**`);
+    log(`**Invoking handler for ${type}:${event}**`);
+    // Support module.exports or transpiled `export default`
     handler.default ? handler.default(data) : handler(data);
 };

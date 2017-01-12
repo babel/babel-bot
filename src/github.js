@@ -14,7 +14,7 @@ const post = exports.post = (path: string, body: Object | Array<any>) => {
     })
 };
 
-exports.get = (uri: string) => got.get(uri, { headers });
+const get = exports.get = (uri: string) => got.get(uri, { headers });
 
 exports.addIssueComment = (issueId: string | number, owner: string, repo: string, comment: string) => {
     const uri = `/repos/${owner}/${repo}/issues/${issueId}/comments`;
