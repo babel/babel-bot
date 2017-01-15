@@ -14,7 +14,7 @@ const post = exports.post = (path: string, body: Object | Array<any>) => {
     })
 };
 
-const get = exports.get = (uri: string) => got.get(uri, { headers });
+const get = exports.get = (uri: string, opts: Object) => got.get(uri, { headers, ...opts });
 
 exports.addIssueComment = (issueId: string | number, owner: string, repo: string, comment: string) => {
     const uri = `/repos/${owner}/${repo}/issues/${issueId}/comments`;
@@ -23,4 +23,10 @@ exports.addIssueComment = (issueId: string | number, owner: string, repo: string
 
 exports.addLabels = (id: string | number, owner: string, repo: string, labels: Array<string>) => {
     return post(`/repos/${owner}/${repo}/issues/${id}/labels`, labels);
+};
+
+type OrgPayload = Promise<Array<{ login: string }>>;
+exports.getUserOrgs = (username: string): OrgPayload => {
+    return get(`${BASE_URI}/users/${username}/orgs`, { json: true })
+        .then(({ body }) => body);
 };
