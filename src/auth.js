@@ -9,7 +9,7 @@ const { log } = new Logger('auth.js');
 exports.isValid = (rawBody: string, signature: string, secret: string): bool => {
     const newSignature = crypto
         .createHmac('sha1', secret)
-        .update(rawBody)
+        .update(new Buffer(rawBody, 'utf-8'))
         .digest('hex');
 
     log(`Received sha was ${signature}, new sha is ${newSignature}`, 'verbose');

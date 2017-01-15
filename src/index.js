@@ -1,9 +1,5 @@
 // @flow
 
-const got = require('got');
-const github = require('./github');
-import messages from './messages';
-import util from './util';
 import auth from './auth';
 import Logger from './logger';
 
