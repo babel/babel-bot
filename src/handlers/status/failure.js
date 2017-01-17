@@ -33,19 +33,14 @@ type FailedStatusPayload = {
 const reBuildID = /.+\/(\d+)$/;
 
 const buildItemFailureText = (item: JobItem, owner: string, repo: string) => {
-    return stripIndent`
-        **OS**: ${item.config.os}
-        **node.js version**: ${item.config.node_js}
-        **Started at**: ${item.started_at}
-        **Failed at**: ${item.finished_at}
-        **Logs**: [Click Here](https://travis-ci.org/${owner}/${repo}/jobs/${item.id})
-    `;
+    const travis = `https://travis-ci.org/${owner}/${repo}/jobs/${item.id}`;
+    return `* [Node v${item.config.node_js} - ${item.config.os}](${travis})`;
 };
 
 const buildFailureMsg = (prOwner: string, failedBuilds: Array<JobItem>, owner, repo) => {
     const failureItemsText = failedBuilds.map(
         item => buildItemFailureText(item, owner, repo)
-    ).join('\n\n');
+    ).join('\n');
     return stripIndent`
         Hey @${prOwner}! It looks like one or more of your builds have failed.` +
         ` I\'ve copied the relevant info below to save you some time.\n\n${failureItemsText}`;
