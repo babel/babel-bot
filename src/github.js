@@ -30,3 +30,30 @@ exports.getUserOrgs = (username: string): OrgPayload => {
     return get(`${BASE_URI}/users/${username}/orgs`, { json: true })
         .then(({ body }) => body);
 };
+
+type NewIssueParams = {
+    title: string;
+    body: string;
+    owner: string;
+    repo: string;
+};
+type NewIssueResponse = { html_url: string; };
+exports.newIssue = ({ title, body, owner, repo }: NewIssueParams): Promise<NewIssueResponse> => {
+    console.log('posting new issue');
+    return got.post(`${BASE_URI}/repos/${owner}/${repo}/issues`, {
+        headers,
+        json: true,
+        body: JSON.stringify({ title, body })
+    }).then(({ body }) => body);
+};
+
+type CloseIssueParams = {
+    id: string | number;
+    owner: string;
+    repo: string;
+};
+exports.closeIssue = ({ id, owner, repo }: CloseIssueParams) => {
+    return got.patch(`${BASE_URI}/repos/${owner}/${repo}/issues/${id}`, {
+        body: JSON.stringify({ state: 'closed' })
+    });
+};
