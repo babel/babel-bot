@@ -10,9 +10,11 @@ The bot is build as an [AWS Lambda](https://aws.amazon.com/lambda/) function, us
 
 ## Features
 
-- Create a new comment on newly opened issues
+- Create a new comment on newly opened issues (if not in the org)
 - Reply to issue with canned response when `Needs Info` label is added
 - Notify committer in PR of test failures in TravisCI, and add OS/node.js version that failed, with direct link to log
+- Add `Has PR` label to issues that have been referenced in a PR
+- Add command to move issues to other repo (`@babel-bot move to babel/babylon`)
 
 ## Future Bot Ideas
 
