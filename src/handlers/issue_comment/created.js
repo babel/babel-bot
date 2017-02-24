@@ -40,8 +40,20 @@ const newIssueBody = (user: string, originalUri: string, body: string) => {
     return `Original issue submitted by @${user} in ${originalUri}\n\n${body}`;
 };
 
+const isAnnoying = (body) => body === '+1' || body === '-1';
+
 // This is super messy and needs cleanup. But not tonight :D
 export default function({ comment, issue, repository }: IssueCommentPayload) {
+
+    if (isAnnoying(comment.body)) {
+        log(`Removing a +1/-1 comment`, 'verbose');
+        github.deleteIssueComment({
+            id: comment.id,
+            owner: repository.owner.login,
+            repo: repository.name
+        });
+    }
+
     const [, targetRepo] = comment.body.match(reRepo) || [];
     if (!targetRepo) return;
 
