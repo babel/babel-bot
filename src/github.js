@@ -73,3 +73,21 @@ type IssueCommentParams = {
 exports.deleteIssueComment = ({ id, owner, repo }: IssueCommentParams) => {
     return del(`/repos/${owner}/${repo}/issues/comments/${id}`);
 }
+
+type IssueParams = {
+    content: string;
+    number: string | number;
+    owner: string;
+    repo: string;
+};
+// https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
+exports.createIssueReaction = ({ content, number, owner, repo }: IssueParams) => {
+    return got.post(`${BASE_URI}/repos/${owner}/${repo}/issues/${number}/reactions`, {
+        headers: {
+            ...headers,
+            Accept: 'application/vnd.github.squirrel-girl-preview'
+        },
+        json: true,
+        body: JSON.stringify({ content })
+    }).then(({ body }) => body);
+}

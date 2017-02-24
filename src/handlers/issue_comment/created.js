@@ -51,6 +51,13 @@ export default function({ comment, issue, repository }: IssueCommentPayload) {
             id: comment.id,
             owner: repository.owner.login,
             repo: repository.name
+        }).then(() => {
+            github.createIssueReaction({
+                number: issue.number,
+                owner: repository.owner.login,
+                repo: repository.name,
+                content: comment.body
+            });
         });
     }
 
