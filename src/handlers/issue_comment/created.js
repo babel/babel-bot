@@ -45,19 +45,12 @@ const isAnnoying = (body) => body === '+1' || body === '-1';
 // This is super messy and needs cleanup. But not tonight :D
 export default function({ comment, issue, repository }: IssueCommentPayload) {
 
-    if (isAnnoying(comment.body)) {
+    if (isAnnoying(comment.body.trim())) {
         log(`Removing a +1/-1 comment`, 'verbose');
         github.deleteIssueComment({
             id: comment.id,
             owner: repository.owner.login,
             repo: repository.name
-        }).then(() => {
-            github.createIssueReaction({
-                number: issue.number,
-                owner: repository.owner.login,
-                repo: repository.name,
-                content: comment.body
-            });
         });
     }
 
