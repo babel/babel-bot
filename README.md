@@ -15,6 +15,7 @@ The bot is build as an [AWS Lambda](https://aws.amazon.com/lambda/) function, us
 - Notify committer in PR of test failures in TravisCI, and add OS/node.js version that failed, with direct link to log
 - Add `Has PR` label to issues that have been referenced in a PR
 - Add command to move issues to other repo (`@babel-bot move to babel/babylon`)
+- Deletes issue comments that are just +1/-1
 
 ## Future Bot Ideas
 
