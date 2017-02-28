@@ -24,7 +24,7 @@ export default function({ issue, repository }: OpenedIssuePayload) {
     const msg = messages.newIssue(issueSubmitter);
 
     log(`Checking if ${issueSubmitter} is member of Babel org`, 'verbose');
-    github.getUserOrgs(issueSubmitter).then(orgs => {
+    return github.getUserOrgs(issueSubmitter).then(orgs => {
         const isBabelOrgMember = orgs.filter(({ login }) => login === 'babel').length;
         if (isBabelOrgMember) {
             log(`User is member of Babel org. Skipping comment`, 'verbose');

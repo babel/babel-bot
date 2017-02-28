@@ -6,6 +6,7 @@
         "transform-es2015-parameters",
         "transform-es2015-spread",
         "transform-class-properties",
-        "transform-object-rest-spread"
+        "transform-object-rest-spread",
+        "transform-async-to-generator"
     ]
 }

@@ -8,8 +8,9 @@
     "clean": "rm -f function.zip && rm -rf dist",
     "bundle": "cd dist && zip -r ../function.zip . &&  cd - && zip -ru function.zip node_modules",
     "package": "npm run clean && npm run build && npm run bundle",
-    "test": "jest && flow check",
-    "build": "babel src --out-dir dist --ignore __tests__"
+    "test": "jest & npm run flow",
+    "build": "babel src --out-dir dist --ignore __tests__",
+    "flow": "flow check"
   },
   "author": "Andrew Levine",
   "license": "MIT",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-es2015-destructuring": "^6.19.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
