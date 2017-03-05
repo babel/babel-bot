@@ -39,6 +39,7 @@
 13. Set the option for `When there are no templates defined (recommended)`
 14. Click `Add mapping template`, enter `application/json`, then click the `✓` button
 15. In the template field, copy/paste the following JSON, then click `Save`
+
     ```json
     {
         "signature": "$input.params('X-Hub-Signature')",
@@ -46,6 +47,7 @@
         "data" : $input.json('$')
     }
     ```
+
 16. Under `Resources`, click `Actions` >> `Deploy API`
 17. Select `Deployment Stage` >> `[New Stage]`
 18. For `Stage Name`, enter `test`, then click `Deploy`.
@@ -55,12 +57,13 @@
 
 1. Navigate to your test repository
 2. Visit `Settings` >> `Webhooks`, and click `Add Webhook`
-3. In `Payload` url, enter the `Invoke URL` you copied from the `API Gateway` setup step, and add `/event` to the end of it
-4. On the CLI, run `ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'`. Then add the value to the `Secret` field. **Important**: Save this value somewhere safe
-5. Choose `Let me select individual events.`, and choose `Issues` and `Pull request`
-6. Click `Add webhook`
-7. Navigate to the [`Tokens`](https://github.com/settings/tokens) page in your `GitHub` account settings
-8. Create a new API Token, and give it the `Repo` permissions. Make sure to save this token!
+3. In `Payload URL`, enter the `Invoke URL` you copied from the `API Gateway` setup step, and add `/event` to the end of it
+4. In `Content type`, select `application/json`
+5. On the CLI, run `ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'`. Then add the value to the `Secret` field. **Important**: Save this value somewhere safe
+6. Choose `Let me select individual events.`, and choose `Issues` and `Pull request`
+7. Click `Add webhook`
+8. Navigate to the [`Tokens`](https://github.com/settings/tokens) page in your `GitHub` account settings
+9. Create a new API Token, and give it the `Repo` permissions. Make sure to save this token!
 
 ### Final Steps
 
