@@ -25,12 +25,12 @@ export default function({ release, repository }: ReleasePublishedPayload) {
 
     log('Linking pull requests to release', 'verbose');
 
-    const regex = /- \[#(\d+)]/g;
+    const regex = /(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved) \[#(\d+)\]/ig;
 
     let match;
 
     while ((match = regex.exec(body)) !== null) {
-        const issue = match[1];
+        const issue = match[2];
         log(`Add comment to /repos/${owner}/${repo}/issues/${issue}/comments`, 'verbose');
         github.addIssueComment(issue, owner, repo, msg);
     }
