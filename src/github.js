@@ -60,6 +60,7 @@ type CloseIssueParams = {
 };
 exports.closeIssue = ({ id, owner, repo }: CloseIssueParams) => {
     return got.patch(`${BASE_URI}/repos/${owner}/${repo}/issues/${id}`, {
+        headers,
         body: JSON.stringify({ state: 'closed' })
     });
 };
@@ -90,4 +91,15 @@ exports.createIssueReaction = ({ content, number, owner, repo }: IssueParams) =>
         json: true,
         body: JSON.stringify({ content })
     }).then(({ body }) => body);
+}
+
+type LabeledIssuesParams = {
+    labels: string;
+    owner: string;
+    repo: string;
+}
+
+exports.getLabeledIssues = ({ labels, owner, repo }: LabeledIssuesParams) => {
+    return get(`${BASE_URI}/repos/${owner}/${repo}/issues?labels=${labels}`, { json: true })
+        .then(({ body }) => body);
 }
