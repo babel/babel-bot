@@ -27,11 +27,11 @@ export default function({ issue, repository }: OpenedIssuePayload) {
     return github.getUserOrgs(issueSubmitter).then(orgs => {
         const isBabelOrgMember = orgs.filter(({ login }) => login === 'babel').length;
         if (isBabelOrgMember) {
-            log(`User is member of Babel org. Skipping comment`, 'verbose');
+            log('User is member of Babel org. Skipping comment', 'verbose');
             return;
-        };
+        }
 
-        log(`User is not member of Babel org. Adding comment`, 'verbose');
+        log('User is not member of Babel org. Adding comment', 'verbose');
         return github.addIssueComment(issue.number, owner, repo, msg);
     }).catch(e => {
         log(`Failed attempting to add new issue comment. Details: ${e.message}`);

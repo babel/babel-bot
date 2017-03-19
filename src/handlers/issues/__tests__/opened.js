@@ -1,7 +1,6 @@
 // @flow
 
 import handler from '../opened';
-import fs from 'fs';
 
 const payload = require('./__fixtures__/new-issue-opened.json');
 jest.mock('../../../github', () => ({

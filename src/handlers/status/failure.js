@@ -47,7 +47,7 @@ const buildFailureMsg = (prOwner: string, failedBuilds: Array<JobItem>, owner, r
 };
 
 export default function(payload: FailedStatusPayload) {
-    const { repository: repo, target_url } = payload;
+    const { repository: repo } = payload;
     const [, buildID] = payload.target_url.match(reBuildID) || [];
 
     log(`Fetching test matrix for TravisCI build #${buildID}`, 'verbose');

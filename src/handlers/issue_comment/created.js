@@ -2,7 +2,7 @@
 
 import github from '../../github';
 import Logger from '../../logger';
-import { oneLine } from 'common-tags'
+import { oneLine } from 'common-tags';
 
 const { log } = new Logger('handlers/issue_comment/created.js');
 
@@ -46,7 +46,7 @@ const isAnnoying = (body) => body === '+1' || body === '-1';
 export default function({ comment, issue, repository }: IssueCommentPayload) {
 
     if (isAnnoying(comment.body.trim())) {
-        log(`Removing a +1/-1 comment`, 'verbose');
+        log('Removing a +1/-1 comment', 'verbose');
         github.deleteIssueComment({
             id: comment.id,
             owner: repository.owner.login,

@@ -26,7 +26,8 @@ function issuesFromBody(body: string) {
     if (!fixedList) return [];
 
     const reID = /#(\d+)/g;
-    let val, ids = [];
+    let val = [];
+    const ids = [];
     while ((val = reID.exec(fixedList)) !== null) {
         ids.push(val[1]);
     }
@@ -39,7 +40,7 @@ export default function({ number, pull_request, repository }: OpenedPRPayload) {
     const issues = issuesFromBody(body);
     if (!issues.length) {
         log(`No issues found for PR #${number}`, 'verbose');
-        return
+        return;
     }
 
     const { name: repo, owner: { login } } = repository;
@@ -55,6 +56,6 @@ export default function({ number, pull_request, repository }: OpenedPRPayload) {
     Promise.all(requests).then(() => {
         log(`Submitted labels for PR ${number} on issues: ${issuesStr}`, 'verbose');
     }).catch(e => {
-        log(`Failed submitted labels for PR ${number} on at least one of ${issuesStr}`);
+        log(`Failed submitted labels for PR ${number} on at least one of ${issuesStr}. Details: ${e.message}`);
     });
 }

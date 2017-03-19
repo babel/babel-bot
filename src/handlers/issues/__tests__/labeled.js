@@ -1,7 +1,6 @@
 // @flow
 
 import handler from '../labeled';
-import fs from 'fs';
 
 const wrongLabelPayload = require('./__fixtures__/other-label-added.json');
 const needsInfoPayload = require('./__fixtures__/info-label-added.json');

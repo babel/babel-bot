@@ -72,7 +72,7 @@ type IssueCommentParams = {
 // https://developer.github.com/v3/issues/comments/#delete-a-comment
 exports.deleteIssueComment = ({ id, owner, repo }: IssueCommentParams) => {
     return del(`/repos/${owner}/${repo}/issues/comments/${id}`);
-}
+};
 
 type IssueParams = {
     content: string;
@@ -90,4 +90,4 @@ exports.createIssueReaction = ({ content, number, owner, repo }: IssueParams) =>
         json: true,
         body: JSON.stringify({ content })
     }).then(({ body }) => body);
-}
+};
