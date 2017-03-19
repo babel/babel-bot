@@ -11,7 +11,7 @@
     "test": "jest & npm run flow",
     "build": "babel src --out-dir dist --ignore __tests__",
     "flow": "flow check",
-    "eslint": "eslint src"
+    "eslint": "eslint src/ --format=codeframe"
   },
   "author": "Andrew Levine",
   "license": "MIT",
