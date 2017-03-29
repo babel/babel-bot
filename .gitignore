@@ -3,3 +3,4 @@ dist
 function.zip
 node_modules
 npm-debug.log
+.vscode
