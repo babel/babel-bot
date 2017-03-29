@@ -91,3 +91,12 @@ exports.createIssueReaction = ({ content, number, owner, repo }: IssueParams) =>
         body: JSON.stringify({ content })
     }).then(({ body }) => body);
 }
+
+type DeleteBranchParams = {
+  owner: string;
+  repo: string;
+  branch: string;
+}
+exports.deleteBranch = ({ owner, repo, branch }: DeleteBranchParams) => {
+  return del(`/repos/${owner}/${repo}/git/refs/heads/${branch}`);
+}
