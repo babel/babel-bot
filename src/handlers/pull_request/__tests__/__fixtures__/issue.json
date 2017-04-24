@@ -1,0 +1,45 @@
+{
+    "url": "https://api.github.com/repos/DrewML/babel/issues/2",
+    "repository_url": "https://api.github.com/repos/DrewML/babel",
+    "labels_url": "https://api.github.com/repos/DrewML/babel/issues/2/labels{/name}",
+    "comments_url": "https://api.github.com/repos/DrewML/babel/issues/2/comments",
+    "events_url": "https://api.github.com/repos/DrewML/babel/issues/2/events",
+    "html_url": "https://github.com/DrewML/babel/issues/2",
+    "id": 196255704,
+    "number": 14,
+    "title": "Test 2",
+    "user": {
+        "login": "DrewML",
+        "id": 5233399,
+        "avatar_url": "https://avatars.githubusercontent.com/u/5233399?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DrewML",
+        "html_url": "https://github.com/DrewML",
+        "followers_url": "https://api.github.com/users/DrewML/followers",
+        "following_url": "https://api.github.com/users/DrewML/following{/other_user}",
+        "gists_url": "https://api.github.com/users/DrewML/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/DrewML/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/DrewML/subscriptions",
+        "organizations_url": "https://api.github.com/users/DrewML/orgs",
+        "repos_url": "https://api.github.com/users/DrewML/repos",
+        "events_url": "https://api.github.com/users/DrewML/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/DrewML/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "labels": [
+        {
+            "name": "claimed"
+        }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2016-12-18T03:18:25Z",
+    "updated_at": "2016-12-18T03:18:25Z",
+    "closed_at": null,
+    "body": ""
+}
