@@ -30,3 +30,8 @@ exports.newIssue = (username: string) => stripIndent`
     community that typically always has someone willing to help. You can sign-up [here](https://slack.babeljs.io/)
     for an invite.
 `;
+
+exports.tweetIssue = (issueURL: string) => stripIndent`
+    [issue] Beginner friendly issue for new contributors,
+    ${issueURL}
+`;
