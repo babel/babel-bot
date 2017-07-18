@@ -32,6 +32,6 @@ exports.newIssue = (username: string) => stripIndent`
 `;
 
 exports.tweetIssue = (issueURL: string) => stripIndent`
-    [issue] Beginner friendly issue for new contributors,
+    If you're looking to contribute to Babel, we have another beginner-friendly issue for you ! 📄
     ${issueURL}
 `;
