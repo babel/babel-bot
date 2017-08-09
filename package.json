@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -f function.zip && rm -rf dist",
-    "bundle": "cd dist && zip -r ../function.zip . &&  cd - && zip -ru function.zip node_modules",
+    "bundle": "bash ./scripts/bundle.sh",
     "package": "npm run clean && npm run build && npm run bundle",
     "test": "jest & npm run flow",
     "build": "babel src --out-dir dist --ignore __tests__",
