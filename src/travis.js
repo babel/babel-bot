@@ -1,12 +1,12 @@
 // @flow
 
-import got from 'got';
+import got from "got";
 
 const headers = {
-    Accept: 'application/vnd.travis-ci.2+json',
-    'User-Agent': 'BabelBot/1.0.0'
+  Accept: "application/vnd.travis-ci.2+json",
+  "User-Agent": "BabelBot/1.0.0"
 };
-const API_BASE = 'https://api.travis-ci.org';
+const API_BASE = "https://api.travis-ci.org";
 
 export type JobItem = {
     id: number;
@@ -28,11 +28,11 @@ type BuildBody = {
 
 
 export function fetchBuild(owner: string, repo: string, buildID: number | string): Promise<BuildBody> {
-    return got.get(`${API_BASE}/repos/${owner}/${repo}/builds/${buildID}`, {
-        headers,
-        json: true
-    }).then(res => {
-        const body: BuildBody = res.body;
-        return body;
-    });
+  return got.get(`${API_BASE}/repos/${owner}/${repo}/builds/${buildID}`, {
+    headers,
+    json: true
+  }).then((res) => {
+    const body: BuildBody = res.body;
+    return body;
+  });
 }

@@ -10,7 +10,9 @@
     "package": "npm run clean && npm run build && npm run bundle",
     "test": "jest & npm run flow",
     "build": "babel src --out-dir dist --ignore __tests__",
-    "flow": "flow check"
+    "flow": "flow check",
+    "eslint": "eslint src/ --format=codeframe",
+    "eslint-fix": "eslint src/ --fix --format=codeframe"
   },
   "author": "Andrew Levine",
   "license": "MIT",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-es2015-destructuring": "^6.19.0",
@@ -30,6 +33,11 @@
     "babel-plugin-transform-es2015-spread": "^6.8.0",
     "babel-plugin-transform-flow-strip-types": "^6.21.0",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "eslint": "^3.18.0",
+    "eslint-config-babel": "^6.0.0",
+    "eslint-plugin-flowtype": "^2.30.3",
+    "eslint-plugin-jasmine": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.1",
     "flow-bin": "^0.37.4",
     "jest": "^18.0.0"
   },
