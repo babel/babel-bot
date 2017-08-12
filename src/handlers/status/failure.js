@@ -5,30 +5,9 @@ import github from '../../github';
 import { fetchBuild } from '../../travis';
 import stripIndent from 'common-tags/lib/stripIndent';
 import type { JobItem } from '../../travis';
+import type { StatusPayload } from './types';
 
 const { log } = new Logger('status/failure.js');
-
-type FailedStatusPayload = {
-    description: string;
-    target_url: string;
-    branches: Array<{
-        name: string;
-        commit: {
-            sha: string;
-            url: string;
-        }
-    }>;
-    repository: {
-        full_name: string;
-        name: string;
-        owner: {
-            login: string;
-        }
-    };
-    commit: {
-        author: { login: string }
-    }
-};
 
 const reBuildID = /.+\/(\d+)$/;
 
@@ -46,7 +25,7 @@ const buildFailureMsg = (prOwner: string, failedBuilds: Array<JobItem>, owner, r
         ` I\'ve copied the relevant info below to save you some time.\n\n${failureItemsText}`;
 };
 
-export default function(payload: FailedStatusPayload) {
+export default function(payload: StatusPayload) {
     const { repository: repo, target_url } = payload;
     const [, buildID] = payload.target_url.match(reBuildID) || [];
 

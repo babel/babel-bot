@@ -30,3 +30,7 @@ exports.newIssue = (username: string) => stripIndent`
     community that typically always has someone willing to help. You can sign-up [here](https://slack.babeljs.io/)
     for an invite.
 `;
+
+exports.replPreview = (url: string) => stripIndent`
+    Build successful! You can test your changes in the REPL here: ${url}
+`;
