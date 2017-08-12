@@ -5,7 +5,7 @@ import http from 'http';
 import type {InputType} from './index';
 import {handler} from './index';
 
-const port = process.env.BABEL_BOT_PORT || 8001;
+const port = parseInt(process.env.BABEL_BOT_PORT, 10) || 8001;
 
 http.createServer((request, response) => {
   function writeResponse(code, text) {
