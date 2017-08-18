@@ -22,7 +22,7 @@ lambda.updateFunctionCode({
 }, function(err, data) {
   if (err) {
     console.error('Could not update: ' + err.message);
-    process.exit(2);
+    process.exit(1);
   } else {
     console.log('Successfully updated!');
   }
