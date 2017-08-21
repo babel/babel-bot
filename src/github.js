@@ -102,6 +102,10 @@ type GetCommentsParams = {
 type GetCommentsResult = Array<Comment>;
 type Comment = {
     id: number,
+    user: {
+        id: number,
+        login: string,
+    },
     body: string,
 };
 exports.getIssueComments = async ({ owner, repo, number }: GetCommentsParams) => {
@@ -110,6 +114,21 @@ exports.getIssueComments = async ({ owner, repo, number }: GetCommentsParams) =>
         json: true,
     });
     return (result.body: GetCommentsResult);
+};
+
+// https://developer.github.com/v3/issues/comments/#edit-a-comment
+type EditCommentsParams = {
+    owner: string;
+    repo: string;
+    id: number;
+    body: string;
+};
+exports.editComment = async ({ owner, repo, id, body }: EditCommentsParams) => {
+    await got.patch(`${BASE_URI}/repos/${owner}/${repo}/issues/comments/${id}`, {
+        body: JSON.stringify({ body }),
+        headers,
+        json: true,
+    });
 };
 
 // https://developer.github.com/v3/repos/statuses/#create-a-status

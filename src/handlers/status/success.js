@@ -40,22 +40,38 @@ export default async function(payload: StatusPayload): Promise<void> {
     if (owner !== 'babel' || repo !== 'babel') {
       replURL += `#?circleci_repo=${owner}/${repo}`;
     }
+    const commentBody = replPreview(replURL);
 
-    // Check if we already have a comment with this exact URL. Sometimes, GitHub
-    // will call the webhook multiple times for the same status (???)
+    let commentRequest;
     try {
+      // See if we already have an existing comment
       const existingComments = await github.getIssueComments({owner, repo, number: pr});
-      if (existingComments.find(comment => comment.body.includes(replURL))) {
-        log(`Not adding comment to #${pr} as one already exists`);
-        return;
+      const existingComment = existingComments.find(
+        comment =>
+          comment.user.login === 'babel-bot' &&
+          comment.body.includes('/repl/build/')
+      );
+      if (existingComment) {
+        // There's already an existing comment, so we'll just edit that one
+        // rather than posting a brand new comment.
+        commentRequest = github.editComment({
+          owner,
+          repo,
+          id: existingComment.id,
+          body: commentBody
+        });
       }
     } catch (err) {
       // Don't worry... It's probably okay. The worst thing that will happen is
       // that we have duplicate comments.
     }
 
+    if (!commentRequest) {
+      commentRequest = github.addIssueComment(pr, owner, repo, commentBody);
+    }
+
     await Promise.all([
-      github.addIssueComment(pr, owner, repo, replPreview(replURL)),
+      commentRequest,
       github.setStatus({
         owner,
         repo,
