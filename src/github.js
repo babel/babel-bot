@@ -28,9 +28,21 @@ exports.addIssueComment = (issueId: string | number, owner: string, repo: string
     return post(uri, { body: comment });
 };
 
+type LabelPayload = Promise<Array<{ name: string }>>;
+// https://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
+exports.getLabels = (id: string | number, owner: string, repo: string): LabelPayload => {
+    return get(`${BASE_URI}/repos/${owner}/${repo}/issues/${id}/labels`, { json: true })
+    .then(({ body }) => body);
+}
+
 exports.addLabels = (id: string | number, owner: string, repo: string, labels: Array<string>) => {
     return post(`/repos/${owner}/${repo}/issues/${id}/labels`, labels);
 };
+
+// https://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
+exports.removeLabel = (id: string | number, owner: string, repo: string, label: { name: string }) => {
+    return del(`/repos/${owner}/${repo}/issues/${id}/labels/${label.name}`);
+}
 
 type OrgPayload = Promise<Array<{ login: string }>>;
 exports.getUserOrgs = (username: string): OrgPayload => {

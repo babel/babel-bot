@@ -43,16 +43,36 @@ export default function({ number, pull_request, repository }: OpenedPRPayload) {
     }
 
     const { name: repo, owner: { login } } = repository;
-    const requests = issues.map(id => github.addLabels(
-        id,
-        login,
-        repo,
-        ['Has PR']
-    ));
+    const requests = issues.map(id => {
+        github.getLabels(
+            id,
+            login,
+            repo
+        )
+            .then(labels => {
+                const labelsToRemove = labels.filter(label => (
+                    /claimed/i.test(label.name) ||
+                    /help[- ]wanted/i.test(label.name)
+                ));
+
+               return Promise.all(labelsToRemove.map(label => github.removeLabel(
+                  id,
+                  login,
+                  repo,
+                  label
+               )));
+            })
+            .then(() => github.addLabels(
+                id,
+                login,
+                repo,
+                ['Has PR']
+            ));
+    });
 
     const issuesStr = issues.join(', ');
     log(`Sent request(s) to add labels related to PR #${number}. Issues: ${issuesStr}`, 'verbose');
-    Promise.all(requests).then(() => {
+    return Promise.all(requests).then(() => {
         log(`Submitted labels for PR ${number} on issues: ${issuesStr}`, 'verbose');
     }).catch(e => {
         log(`Failed submitted labels for PR ${number} on at least one of ${issuesStr}`);
