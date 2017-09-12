@@ -21,7 +21,7 @@ type OpenedPRPayload = {
 };
 
 function issuesFromBody(body: string) {
-    const reFixedList = /\s+Fixed tickets\s+\|*\s(.+)/i;
+    const reFixedList = /\s+Fixed issues\s+\|*\s(.+)/i;
     const [, fixedList] = body.match(reFixedList) || [];
     if (!fixedList) return [];
 
