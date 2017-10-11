@@ -1,6 +1,7 @@
 // @flow
 
-const got = require('got');
+import got from 'got';
+import url from 'url';
 
 const BASE_URI = exports.BASE_URI = 'https://api.github.com';
 const headers = {
@@ -90,4 +91,80 @@ exports.createIssueReaction = ({ content, number, owner, repo }: IssueParams) =>
         json: true,
         body: JSON.stringify({ content })
     }).then(({ body }) => body);
+}
+
+// https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue
+type GetCommentsParams = {
+    owner: string;
+    repo: string;
+    number: string | number;
+};
+type GetCommentsResult = Array<Comment>;
+type Comment = {
+    id: number,
+    user: {
+        id: number,
+        login: string,
+    },
+    body: string,
+};
+exports.getIssueComments = async ({ owner, repo, number }: GetCommentsParams) => {
+    const result = await got.get(`${BASE_URI}/repos/${owner}/${repo}/issues/${number}/comments`, {
+        headers,
+        json: true,
+    });
+    return (result.body: GetCommentsResult);
+};
+
+// https://developer.github.com/v3/issues/comments/#edit-a-comment
+type EditCommentsParams = {
+    owner: string;
+    repo: string;
+    id: number;
+    body: string;
+};
+exports.editComment = async ({ owner, repo, id, body }: EditCommentsParams) => {
+    await got.patch(`${BASE_URI}/repos/${owner}/${repo}/issues/comments/${id}`, {
+        body: JSON.stringify({ body }),
+        headers,
+        json: true,
+    });
+};
+
+// https://developer.github.com/v3/repos/statuses/#create-a-status
+type SetStatusParams = {
+    owner: string;
+    repo: string;
+    sha: string;
+
+    context: string;
+    description: string;
+    state: 'pending' | 'success' | 'error' | 'failure';
+    target_url: string;
+};
+exports.setStatus = async function(params: SetStatusParams) {
+    const {owner, repo, sha, ...body} = params;
+    const response = await got.post(`${BASE_URI}/repos/${owner}/${repo}/statuses/${sha}`, {
+        headers,
+        json: true,
+        body: JSON.stringify(body)
+    });
+    return response.body;
+};
+exports.parsePullRequestURL = function(prURL: string): {
+    owner: string,
+    repo: string,
+    pr: number
+} {
+    const path = url.parse(prURL).pathname;
+    if (!path) {
+      throw new Error('Invalid GitHub URL');
+    }
+    const parts = path.substr(1).split('/');
+    if (parts.length !== 4 || parts[2] !== 'pull') {
+      throw new Error(`Unexpected GitHub PR URL format: ${path}`);
+    }
+
+    const [owner, repo, _, pr] = parts;
+    return {owner, repo, pr: +pr};
 }

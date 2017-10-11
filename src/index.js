@@ -3,7 +3,7 @@
 import auth from './auth';
 import Logger from './logger';
 
-type InputType = {
+export type InputType = {
     signature: string;
     data: {
         action?: string;

@@ -34,4 +34,7 @@ exports.newIssue = (username: string) => stripIndent`
 exports.tweetIssue = (issueURL: string) => stripIndent`
     If you're looking to contribute to Babel, we have another beginner-friendly issue for you ! 📄
     ${issueURL}
+
+exports.replPreview = (url: string) => stripIndent`
+    Build successful! You can test your changes in the REPL here: ${url}
 `;
