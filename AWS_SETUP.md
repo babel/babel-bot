@@ -65,12 +65,24 @@
 8. Navigate to the [`Tokens`](https://github.com/settings/tokens) page in your `GitHub` account settings
 9. Create a new API Token, and give it the `Repo` permissions. Make sure to save this token!
 
+### Twitter
+
+1. Visit [Twitter Apps console](https://apps.twitter.com/)
+2. Click on `Create New App`
+3. In Application Details, enter `Name` as `babel-bot`, enter `Description` as `babel-bot twitter app`.
+4. For `Website` enter `http://localhost:3000`
+5. For `Callback URL` enter `http://localhost:3000/cb`
+6. Click on `Create your Twitter application`
+7. Verify you were redirected to a page with `babel-bot` as header
+8. Navigate to `Keys and Access Tokens`
+9. Copy and `Consumer Key (API Key)`, `Consumer Secret (API Secret)`, `Access Token` and `Access Token Secret`
+
 ### Final Steps
 
 1. Go back to the `Lambda` dashboard in `AWS`, and click on your function to edit it
 2. For `Code entry type`, choose `Upload a .ZIP file`
 3. Run `yarn run package` in the root of this repository (make sure you've run `yarn` first), then upload the `function.zip` file in the root
-4. Under `Environment variables`, add a variable for `GITHUB_API_KEY` and `GITHUB_SECRET`, using the values you setup in the `GitHub` section of this document
+4. Under `Environment variables`, add a variable for `GITHUB_API_KEY` and `GITHUB_SECRET`, using the values you setup in the `GitHub` section of this document and add `TWITTER_CONSUMER_KEY`, `TWITTER_CONSUMER_SECRET`, `TWITTER_ACCESS_TOKEN_KEY`, `TWITTER_ACCESS_TOKEN_SECRET` using the values you setup in the `Twitter Apps console`
 5. Click `Save`
 
 If everything was done correctly, your bot should now be live! To see the execution logs, you can click the `Monitoring` tab on your function page in `Lambda`, then click `View logs in CloudWatch`.

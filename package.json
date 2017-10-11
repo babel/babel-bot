@@ -20,7 +20,8 @@
     "common-tags": "^1.4.0",
     "got": "^6.6.3",
     "parse-diff": "^0.4.0",
-    "timing-safe-equal": "^1.0.0"
+    "timing-safe-equal": "^1.0.0",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "aws-sdk": "^2.95.0",
