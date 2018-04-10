@@ -65,12 +65,18 @@
 8. Navigate to the [`Tokens`](https://github.com/settings/tokens) page in your `GitHub` account settings
 9. Create a new API Token, and give it the `Repo` permissions. Make sure to save this token!
 
+### CircleCI
+
+1. Navigate to https://circleci.com/account/api
+2. TODO by someone who has a CircleCI account...
+
 ### Final Steps
 
 1. Go back to the `Lambda` dashboard in `AWS`, and click on your function to edit it
 2. For `Code entry type`, choose `Upload a .ZIP file`
 3. Run `yarn run package` in the root of this repository (make sure you've run `yarn` first), then upload the `function.zip` file in the root
 4. Under `Environment variables`, add a variable for `GITHUB_API_KEY` and `GITHUB_SECRET`, using the values you setup in the `GitHub` section of this document
-5. Click `Save`
+5. Under `Environment variables`, add a variable for `CIRCLECI_API_KEY`, using the values you setup in the `CircleCI` section of this document
+6. Click `Save`
 
 If everything was done correctly, your bot should now be live! To see the execution logs, you can click the `Monitoring` tab on your function page in `Lambda`, then click `View logs in CloudWatch`.

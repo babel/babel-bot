@@ -168,3 +168,23 @@ exports.parsePullRequestURL = function(prURL: string): {
     const [owner, repo, _, pr] = parts;
     return {owner, repo, pr: +pr};
 }
+
+// https://developer.github.com/v3/pulls/#get-a-single-pull-request
+type PullRequestParams = {
+    owner: string;
+    repo: string;
+    number: string | number;
+};
+exports.getPullRequest = async function({ owner, repo, number }: PullRequestParams) {
+    return got.get(`${BASE_URI}/repos/${owner}/${repo}/pulls/${number}`);
+};
+
+// https://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
+type StatusesPayload = {
+    owner: string;
+    repo: string;
+    sha: string;
+};
+exports.getStatuses = async function({ owner, repo, sha }: StatusesPayload) {
+    return got.get(`${BASE_URI}/repos/${owner}/${repo}/statuses/${sha}`);
+}
