@@ -64,10 +64,18 @@ export default function({ comment, issue, repository }: IssueCommentPayload) {
     if (reKick.test(body)) {
         const owner = repository.owner.login;
         const repo = repository.name;
-        return github.getPullRequest({
-            owner,
-            repo,
-            number: issue.number,
+        const kickingUser = comment.user.login;
+        return github.getUserOrgs(kickingUser).then(orgs => {
+            const isBabelMember = orgs.find(org => org.login === 'babel');
+            if (!isBabelMember) {
+                throw new Error(`User ${kickingUser} attempted to kick CircleCI without being an org member. Rude!`);
+            }
+
+            return github.getPullRequest({
+                owner,
+                repo,
+                number: issue.number,
+            });
         }).then(pr => {
             const {sha} = pr.head;
             return github.getStatuses({owner, repo, sha});
@@ -79,7 +87,7 @@ export default function({ comment, issue, repository }: IssueCommentPayload) {
             const build = circleci.parseBuildURL(circleStatus.target_url);
             return circleci.retryBuild(build.owner, build.repo, build.build);
         }).then(() => {
-            log(`Kicked CircleCI build for ${owner}/${repo}#${issue.number}`);
+            log(`Kicked CircleCI build for ${owner}/${repo}#${issue.number}`, 'verbose');
         }).catch(err => {
             log(`Failed kicking PR ${issue.number}. Maybe the comment was on an issue? Details: ${err.message}`);
             throw err;
