@@ -18,7 +18,7 @@ const headers = {
   'User-Agent': 'BabelBot/1.0.0'
 };
 const API_BASE = 'https://circleci.com/api/v1.1/project/github';
-const API_KEY = process.env.CIRCLECI_API_KEY;
+const API_KEY = `${process.env.CIRCLECI_API_KEY || ''}`;
 
 /**
  * Parses the owner, repo and build number from a CircleCI build URL.

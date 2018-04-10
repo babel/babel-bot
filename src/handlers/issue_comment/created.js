@@ -1,6 +1,7 @@
 // @flow
 
 import github from '../../github';
+import * as circleci from '../../circleci';
 import Logger from '../../logger';
 import { oneLine } from 'common-tags'
 
@@ -71,12 +72,12 @@ export default function({ comment, issue, repository }: IssueCommentPayload) {
             const {sha} = pr.head;
             return github.getStatuses({owner, repo, sha});
         }).then(statues => {
-            const circleStatus = statues.find({context} => context === 'ci/circleci');
-            if (!circleci) {
+            const circleStatus = statues.find(({context}) => context === 'ci/circleci');
+            if (!circleStatus) {
                 throw new Error('Failed to find CircleCI status');
             }
             const build = circleci.parseBuildURL(circleStatus.target_url);
-            return circleci.retryBuild(build);
+            return circleci.retryBuild(build.owner, build.repo, build.build);
         }).then(() => {
             log(`Kicked CircleCI build for ${owner}/${repo}#${issue.number}`);
         }).catch(err => {
