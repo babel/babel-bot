@@ -52,6 +52,11 @@ export default async function(payload: StatusPayload): Promise<void> {
           comment.body.includes('/repl/build/')
       );
       if (existingComment) {
+        // don't edit if it's the same content
+        if (existingComment === commentBody) {
+          return Promise.resolve();
+        }
+
         // There's already an existing comment, so we'll just edit that one
         // rather than posting a brand new comment.
         commentRequest = github.editComment({
