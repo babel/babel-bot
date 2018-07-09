@@ -46,3 +46,7 @@ This process is currently manual, but will likely be automated in the future.
 2. Login to the AWS console, and find the function in the Lambda dashboard, under `Functions`
 3. Click the `Upload` button under the `Code` tab (`Code Entry Type` should be set to `Upload a .ZIP file`)
 4. Click `Save`
+
+---
+
+If you have a `~/.aws/configuration` setup, you can just run `npm run deploy`.
