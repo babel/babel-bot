@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 const AWS = require('aws-sdk');
-AWS.config.update({region: process.env.AWS_REGION || 'us-west-1'});
+AWS.config.update({region: process.env.AWS_REGION || 'us-east-1'});
 
 let file;
 try {
@@ -16,7 +16,7 @@ try {
 console.log('Deploying...');
 const lambda = new AWS.Lambda({apiVersion: '2015-03-31'});
 lambda.updateFunctionCode({
-  FunctionName: 'BabelBot',
+  FunctionName: 'babel-function',
   Publish: true,
   ZipFile: file,
 }, function(err, data) {
