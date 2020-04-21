@@ -24,7 +24,7 @@ export default async function(payload: CheckRunPayload): Promise<void> {
   }
 
   if (check_run.conclusion !== "success") {
-    log(`Ignoring check run ${payload.check_run.id} as it does not conclude successfully: ${check_run.conclusion}`, 'verbose');
+    log(`Ignoring check run ${check_run.id} as it does not conclude successfully: ${check_run.conclusion}`, 'verbose');
     return;
   }
 
