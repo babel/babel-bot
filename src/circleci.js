@@ -40,6 +40,22 @@ export function parseBuildURL(buildURL: string): {
   return {owner, repo, build: +build};
 }
 
+/**
+ * Extract the CircleCI build URL from GitHub check run output summary
+ * @param {string} outputSummary
+ * @example
+ *
+ * extractBuildURL("* [build-standalone](https://circleci.com/gh/babel/babel/21115?utm_campaign=vcs-integration-link&utm_medium=referral&utm_source=github-checks-link) - Success")
+ * // returns "https://circleci.com/gh/babel/babel/21115?utm_campaign=vcs-integration-link&utm_medium=referral&utm_source=github-checks-link"
+ */
+export function extractBuildURL(outputSummary: string): string {
+  const matches = outputSummary.match(/\[build-standalone\]\(([^(]+)\)/);
+  if (!matches || !matches[1]) {
+    throw new Error(`Unsupported Check Run Output Summary: ${outputSummary}`);
+  }
+  return matches[1];
+}
+
 export async function fetchBuild(
   owner: string,
   repo: string,
