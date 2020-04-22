@@ -1,6 +1,7 @@
 // @flow
 
 import github from '../../github';
+import * as circleci from '../../circleci';
 import Logger from '../../logger';
 import { oneLine } from 'common-tags'
 
@@ -31,6 +32,11 @@ type IssueCommentPayload = {
 // @babel-bot   move     to   owner/repo
 const reRepo = /@babel-bot\s+move\s+(?:to\s+)?(.+\/.+)/i;
 
+// Accepts
+// @babel-bot kick circleci
+// @babel-bot   kick     circleci
+const reKick = /@babel-bot\s+kick\s+circleci/i;
+
 const movedComment = (user: string, uri: string) => oneLine`
     Hey @${user}! I've [moved your issue](${uri}) to the correct repository. Please make
     sure to keep an eye on the new issue for the latest information.
@@ -54,7 +60,41 @@ export default function({ comment, issue, repository }: IssueCommentPayload) {
         });
     }
 
-    const [, targetRepo] = comment.body.match(reRepo) || [];
+    const {body} = comment;
+    if (reKick.test(body)) {
+        const owner = repository.owner.login;
+        const repo = repository.name;
+        const kickingUser = comment.user.login;
+        return github.getUserOrgs(kickingUser).then(orgs => {
+            const isBabelMember = orgs.find(org => org.login === 'babel');
+            if (!isBabelMember) {
+                throw new Error(`User ${kickingUser} attempted to kick CircleCI without being an org member. Rude!`);
+            }
+
+            return github.getPullRequest({
+                owner,
+                repo,
+                number: issue.number,
+            });
+        }).then(pr => {
+            const {sha} = pr.head;
+            return github.getStatuses({owner, repo, sha});
+        }).then(statues => {
+            const circleStatus = statues.find(({context}) => context === 'ci/circleci');
+            if (!circleStatus) {
+                throw new Error('Failed to find CircleCI status');
+            }
+            const build = circleci.parseBuildURL(circleStatus.target_url);
+            return circleci.retryBuild(build.owner, build.repo, build.build);
+        }).then(() => {
+            log(`Kicked CircleCI build for ${owner}/${repo}#${issue.number}`, 'verbose');
+        }).catch(err => {
+            log(`Failed kicking PR ${issue.number}. Maybe the comment was on an issue? Details: ${err.message}`);
+            throw err;
+        });
+    }
+
+    const [, targetRepo] = body.match(reRepo) || [];
     if (!targetRepo) return;
 
     const username = issue.user.login;

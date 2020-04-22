@@ -18,6 +18,7 @@ const headers = {
   'User-Agent': 'BabelBot/1.0.0'
 };
 const API_BASE = 'https://circleci.com/api/v1.1/project/github';
+const API_KEY = `${process.env.CIRCLECI_API_KEY || ''}`;
 
 /**
  * Parses the owner, repo and build number from a CircleCI build URL.
@@ -66,4 +67,17 @@ export async function fetchBuild(
     json: true,
   });
   return (response.body: Build);
+}
+
+// https://circleci.com/docs/api/v1-reference/#retry-build
+export async function retryBuild(
+  owner: string,
+  repo: string,
+  build: number
+): Promise<number> {
+  const response = await got.post(`${API_BASE}/${owner}/${repo}/${build}/retry?circle-token=${API_KEY}`, {
+    headers,
+    json: true,
+  });
+  return response.build_num;
 }
