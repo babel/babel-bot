@@ -25,7 +25,6 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-flow": "^7.9.0",
     "aws-sdk": "^2.95.0",
@@ -45,9 +44,6 @@
         }
       }],
       "@babel/preset-flow"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
     ]
   }
 }
