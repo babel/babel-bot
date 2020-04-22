@@ -11,7 +11,7 @@
     "package": "npm run clean && npm run build && npm run bundle",
     "watch": "nodemon src/server.js --exec babel-node",
     "test": "jest & npm run flow",
-    "build": "babel src --out-dir dist --ignore __tests__",
+    "build": "babel src --out-dir dist --ignore src/__tests__",
     "flow": "flow check"
   },
   "author": "Andrew Levine",
@@ -23,18 +23,31 @@
     "timing-safe-equal": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-flow": "^7.9.0",
     "aws-sdk": "^2.95.0",
-    "babel-cli": "^6.18.0",
-    "babel-plugin-transform-class-properties": "^6.19.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
-    "babel-plugin-transform-flow-strip-types": "^6.21.0",
-    "babel-plugin-transform-object-rest-spread": "^6.20.2",
-    "flow-bin": "^0.37.4",
-    "jest": "^18.0.0",
+    "flow-bin": "^0.123.0",
+    "jest": "^25.0.0",
     "nodemon": "^1.11.0"
   },
   "jest": {
     "rootDir": "src",
     "notify": true
+  },
+  "babel": {
+    "presets": [
+      ["@babel/preset-env", {
+        "targets": {
+          "node": "current"
+        }
+      }],
+      "@babel/preset-flow"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
   }
 }

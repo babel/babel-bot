@@ -27,7 +27,8 @@ function issuesFromBody(body: string) {
 
     const reID = /#(\d+)/g;
     let val, ids = [];
-    while ((val = reID.exec(fixedList)) !== null) {
+    while ((val = reID.exec(fixedList)) !== null) { 
+        // $FlowIgnore
         ids.push(val[1]);
     }
 
