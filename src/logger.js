@@ -25,7 +25,7 @@ export default class Logger {
         }
     }
 
-    log = (message: string, logLevel: $Enum<typeof logLevels> = 'normal') => {
+    log = (message: string, logLevel: $Keys<typeof logLevels> = 'normal') => {
         const level = logLevels[logLevel];
         if (level <= this.level) {
             console.log(`**${this.file}: ${message}**`);
