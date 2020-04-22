@@ -67,8 +67,7 @@
 
 ### CircleCI
 
-1. Navigate to https://circleci.com/account/api
-2. TODO by someone who has a CircleCI account...
+1. Navigate to https://circleci.com/account/api and click "Create New Token", give it a name, and click "Add API Token".
 
 ### Final Steps
 
