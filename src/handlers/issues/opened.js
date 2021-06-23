@@ -32,7 +32,13 @@ export default function({ issue, repository }: OpenedIssuePayload) {
         };
 
         log(`User is not member of Babel org. Adding comment`, 'verbose');
-        return github.addIssueComment(issue.number, owner, repo, msg);
+        return github.addIssueComment(issue.number, owner, repo, msg)
+        .then(() => github.addLabels(
+            issue.number,
+            owner,
+            repo,
+            ['pending triage']
+        ));
     }).catch(e => {
         log(`Failed attempting to add new issue comment. Details: ${e.message}`);
     });
