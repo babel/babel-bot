@@ -27,7 +27,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-flow": "^7.9.0",
-    "aws-sdk": "^2.95.0",
+    "aws-sdk": "^2.814.0",
     "flow-bin": "^0.123.0",
     "jest": "^25.0.0",
     "nodemon": "^1.11.0"
