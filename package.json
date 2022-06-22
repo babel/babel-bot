@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "common-tags": "^1.4.0",
-    "got": "^6.6.3",
+    "got": "^11.8.5",
     "parse-diff": "^0.4.0",
     "timing-safe-equal": "^1.0.0"
   },
